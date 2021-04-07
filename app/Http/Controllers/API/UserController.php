@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    use PasswordValidationRules;
+
     public function login(Request $request)
     {
         try {
@@ -42,6 +46,29 @@ class UserController extends Controller
                 'message' => 'Something went wrong',
                 'error' => $error
             ], 'Authentication Failed', 500);
+        }
+    }
+
+    public function register(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => $this->passwordRules()
+            ]);
+
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'houseNumber' => $request->hostNumber,
+                'phoneNumber' => $request->phoneNumber,
+                'city' => $request->city,
+                'password' => Hash::make($request->password),
+            ]);
+        } catch (\Throwable $e) {
+            # code...
         }
     }
 }
