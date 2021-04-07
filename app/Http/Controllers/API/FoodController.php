@@ -54,5 +54,18 @@ class FoodController extends Controller
         if ($price_to) {
             $food->where('price', '<=', $price_to);
         }
+
+        if ($rate_from) {
+            $food->where('rate', '>=', $rate_from);
+        }
+
+        if ($rate_to) {
+            $food->where('rate', '<=', $rate_to);
+        }
+
+        return ResponseFormatter::success(
+            $food->paginate($limit),
+            'Data list produk behasil diambil'
+        );
     }
 }
