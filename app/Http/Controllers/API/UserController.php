@@ -67,8 +67,19 @@ class UserController extends Controller
                 'city' => $request->city,
                 'password' => Hash::make($request->password),
             ]);
-        } catch (\Throwable $e) {
-            # code...
+
+            $user = User::where('email', $request->email)->first();
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => 'Bearer',
+                'user' => $user
+            ]);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Something went wrong',
+                'error' => $error
+            ], 'Authenticated Failed', 500);
         }
     }
 }
