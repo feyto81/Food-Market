@@ -41,10 +41,18 @@ class MidtransController extends Controller
                 }
             }
         } else if ($status == 'setlement') {
+            $transaction->status = 'SUCCESS';
         } else if ($status == 'pending') {
+            $transaction->status = 'PENDING';
         } else if ($status == 'deny') {
+            $transaction->status = 'CANCELLED';
         } else if ($status == 'expire') {
+            $transaction->status = 'CANCELLED';
         } else if ($status == 'cancel') {
+            $transaction->status = 'CANCELLED';
         }
+
+        // simpan transaksi
+        $transaction->save();
     }
 }
