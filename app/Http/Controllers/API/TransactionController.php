@@ -86,5 +86,16 @@ class TransactionController extends Controller
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
         Config::$is3ds = config('services.midtrans.is3ds');
+
+        // panggil transaksi yang tadi dibuat
+        $transaction = Transaction::with(['food', 'user'])->find($transaction->id);
+
+        // membuat transaksi midtrans
+
+        $midtrans = [
+            'transaction_details' => [
+                
+            ]
+        ]
     }
 }
