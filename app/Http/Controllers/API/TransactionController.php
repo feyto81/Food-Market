@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
+use Exception;
+use Midtrans\Snap;
+use Midtrans\Config;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Midtrans\Config;
 
 class TransactionController extends Controller
 {
@@ -104,5 +106,17 @@ class TransactionController extends Controller
             'enabled_payments' => ['gopay', 'bank_transfer'],
             'vtweb' => []
         ];
+
+        // Memanggil midtrans
+        try {
+            // Ambil halaman payment midtrans
+            $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
+            $transaction->payment_url = $paymentUrl;
+            $transaction->save();
+            // Mengembalikan Data ke API
+            return ResponseFormatter::success($transaction, 'Transaksi berhasil');
+        } catch (Exception $e) {
+            return ResponseFormatter::error($e->getMessage(), 'Transaksi gagal');
+        }
     }
 }
