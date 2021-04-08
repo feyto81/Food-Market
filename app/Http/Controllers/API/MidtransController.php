@@ -33,6 +33,18 @@ class MidtransController extends Controller
 
         //handle notifikasi status midtrans
         if ($status == 'capture') {
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
+                    $transaction->status = 'PENDING';
+                } else {
+                    $transaction->status = 'SUCCESS';
+                }
+            }
+        } else if ($status == 'setlement') {
+        } else if ($status == 'pending') {
+        } else if ($status == 'deny') {
+        } else if ($status == 'expire') {
+        } else if ($status == 'cancel') {
         }
     }
 }
