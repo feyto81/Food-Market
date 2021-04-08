@@ -60,4 +60,15 @@ class TransactionController extends Controller
         $transaction->update($request->all());
         return ResponseFormatter::success($transaction, 'Transaksi berhasil diperbarui');
     }
+
+    public function checkout(Request $request)
+    {
+        $request->validate([
+            'food_id' => 'required|exists:food,id',
+            'user_id' => 'required|exists:users,id',
+            'quantity' => 'required',
+            'total' => 'required',
+            'status' => 'required',
+        ]);
+    }
 }
