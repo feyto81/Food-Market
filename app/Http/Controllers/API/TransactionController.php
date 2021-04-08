@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Midtrans\Config;
 
 class TransactionController extends Controller
 {
@@ -79,5 +80,11 @@ class TransactionController extends Controller
             'status' => $request->status,
             'payment_url' => '',
         ]);
+
+        //kongigurasi midtrans
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
     }
 }
