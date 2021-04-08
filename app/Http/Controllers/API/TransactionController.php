@@ -94,7 +94,12 @@ class TransactionController extends Controller
 
         $midtrans = [
             'transaction_details' => [
-                
+                'order_id' => $transaction->id,
+                'gross_amount' => (int) $transaction->total,
+            ],
+            'customer_details' => [
+                'first_name' => $transaction->user->name,
+                'email' => $transaction->user->email,
             ]
         ]
     }
