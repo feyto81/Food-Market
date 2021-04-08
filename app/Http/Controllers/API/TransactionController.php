@@ -70,5 +70,14 @@ class TransactionController extends Controller
             'total' => 'required',
             'status' => 'required',
         ]);
+
+        $transaction = Transaction::create([
+            'food_id' => $request->food_id,
+            'user_id' => $request->user_id,
+            'quantity' => $request->quantity,
+            'total' => $request->total,
+            'status' => $request->status,
+            'payment_url' => '',
+        ]);
     }
 }
