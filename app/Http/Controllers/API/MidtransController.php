@@ -55,4 +55,9 @@ class MidtransController extends Controller
         // simpan transaksi
         $transaction->save();
     }
+
+    public function success()
+    {
+        return view('midtrans.success');
+    }
 }
