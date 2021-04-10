@@ -10,7 +10,8 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Validator;
+// use Illuminate\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
