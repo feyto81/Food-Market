@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//HomePage
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
 });
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+//Dashboard
+Route::prefix('dashboard')
+    ->middleware(['auht:sanctum', 'admin'])
+    ->group(function () {
+    });
 Route::get('midtrans/success', [MidtransController::class, 'success']);
 Route::get('midtrans/unfinish', [MidtransController::class, 'unfinish']);
 Route::get('midtrans/error', [MidtransController::class, 'error']);
