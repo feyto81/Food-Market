@@ -123,14 +123,14 @@ class UserController extends Controller
                 'user' => $user
             ], 'User Registered');
         } catch (Exception $error) {
-            return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'errors' => $validator->errors(),
-            ], 'Authentication Failed', 500);
-            // return response()->json([
-            //     'message' => 'The given was invalid',
-            //     'errors' => $validator->errors()
-            // ]);
+            // return ResponseFormatter::error([
+            //     'message' => 'Something went wrong',
+            //     'errors' => $validator->errors(),
+            // ], 'Authentication Failed', 500);
+            return response()->json([
+                'message' => 'The given was invalid',
+                'errors' => $validator->errors()
+            ]);
         }
     }
 
