@@ -100,9 +100,9 @@ class UserController extends Controller
                 'password' => $this->passwordRules()
             ]);
 
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 400);
-            }
+            // if ($validator->fails()) {
+            //     return response()->json($validator->errors(), 400);
+            // }
             User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -123,10 +123,14 @@ class UserController extends Controller
                 'user' => $user
             ], 'User Registered');
         } catch (Exception $error) {
-            return ResponseFormatter::error([
-                'message' => 'Something went wrong',
-                'error' => $error,
-            ], 'Authentication Failed', 500);
+            // return ResponseFormatter::error([
+            //     'message' => 'Something went wrong',
+            //     'error' => $error,
+            // ], 'Authentication Failed', 500);
+            return response()->json([
+                'message' => 'The given was invalid',
+                'error' => $validator->errors()
+            ]);
         }
     }
 
